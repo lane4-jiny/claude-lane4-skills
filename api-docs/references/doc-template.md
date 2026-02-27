@@ -2,73 +2,73 @@
 
 아래 형식에 맞춰 API 문서를 생성한다.
 
----
+## 구조 규칙
 
-## {모듈명} API
+- 최상위: `## {모듈명}` (예: `## gift-cards`, `## points`)
+- 엔드포인트별: `### {엔드포인트 설명}` (예: `### 기프트카드 목록 조회`)
+- 전달하는 값이 없는 섹션은 생략한다 (Query/Path/Request Body 등)
+- interface는 토글(접기)로 제공한다. 단순한 응답은 생략 가능하다.
 
-> 마지막 업데이트: {날짜}
-
-### 개요
-
-- Base Path: `/api/v1/{module}`
-- 컨트롤러: `{ControllerName}`
-- 총 엔드포인트: {N}개
+## 엔드포인트 템플릿
 
 ---
 
-### 엔드포인트 목록
+### {엔드포인트 설명}
 
-| # | Method | Path | 설명 | Guard |
-|---|--------|------|------|-------|
-| 1 | GET | `/api/v1/example` | 예시 조회 | JwtAuthGuard |
-| 2 | POST | `/api/v1/example` | 예시 생성 | JwtAuthGuard, RolesGuard |
-
----
-
-### 엔드포인트 상세
-
-#### 1. {설명}
+**Base**
 
 ```
-{METHOD} {Full Path}
+Method  :  {GET/POST/PUT/PATCH/DELETE}
+Endpoint: {path}
 ```
 
-**Guard**: `{Guard 목록}`
+**Path Parameters** _(있는 경우에만)_
 
-**Request**
+```json
+{paramName}: {type}
+```
 
-| 위치 | 파라미터 | 타입 | 필수 | 설명 |
-|------|---------|------|------|------|
-| Body | name | string | Y | 이름 |
-| Query | page | number | N | 페이지 번호 (기본값: 1) |
-| Param | id | number | Y | 리소스 ID |
+**Query Parameters** _(있는 경우에만)_
 
-**Request DTO**: `{DtoClassName}`
+```
+{paramName}: {type}
+{paramName}?: {type} // 선택값 설명
+```
 
-```typescript
+**Headers**
+
+| Key | Value |
+| --- | --- |
+| x-guest-authorization | {guestToken} |
+
+**Request Body** _(있는 경우에만)_
+
+```json
 {
-  name: string;       // 이름
-  description?: string; // 설명 (선택)
+    "field": "value"
 }
 ```
 
-**Response**
+**Response Body**
 
-```typescript
+```json
 {
-  id: number;
-  name: string;
-  createdAt: Date;
+    "result": true,
+    "code": null,
+    "data": { }
 }
 ```
 
----
+- interface _(토글, 복잡한 응답인 경우에만)_
 
-### DTO 정의
+    ```tsx
+    export class ResponseClassName {
+      field: type;
+    }
+    ```
 
-#### {DtoClassName}
+**Exceptions**
 
-| 필드 | 타입 | 필수 | 검증 규칙 | 설명 |
-|------|------|------|----------|------|
-| name | string | Y | @IsString, @MaxLength(50) | 이름 |
-| description | string | N | @IsOptional, @IsString | 설명 |
+| StatusCode | Cause | Message |
+| --- | --- | --- |
+| 401 | 원인 설명 | 에러 메시지 |
