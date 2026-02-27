@@ -12,6 +12,10 @@ LANE4 운영에 특화된 Claude Code 커스텀 스킬 모음.
 | **issue** | `/issue` | 이슈 발생 시 관련 로직 조회 및 수정/해결 방안 제안 |
 | **lane4-mysql** | `/lane4-mysql` | 자연어 → SQL 변환 및 실행. 배차, 기사, 차량, 법인, 요금 등 LANE4 비즈니스 데이터 조회 |
 | **log-search** | `/log-search` | DB(HTTP_LOG)와 Elasticsearch 양쪽에서 로그 검색 및 분석 |
+| **api-docs** | `/api-docs` | NestJS 컨트롤러/DTO 분석하여 API 문서 마크다운 자동 생성 |
+| **handover** | `/handover` | git log + diff + 코드 분석으로 작업 인수인계서 작성 |
+| **incident** | `/incident` | 장애 대응 플로우. 로그 검색 → 원인 분석 → 영향 범위 → 대응/롤백 가이드 |
+| **work-report** | `/work-report` | git log 기반 기간별 작업 리포트 생성 (일일/주간/커스텀) |
 
 ## 설치
 
